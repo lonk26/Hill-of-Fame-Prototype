@@ -3,16 +3,21 @@ using UnityEngine.SceneManagement;
 
 public class GameOver : MonoBehaviour
 {
+    // Drag UI text here in Inspector
+    public GameObject gameOverUI;
+    public GameObject restryButton;
     // 
     void OnCollisionEnter(Collision collision)
     {
         // 
         if (collision.gameObject.CompareTag("Obstacle"))
         {
-            // Console log for testing
-            Debug.Log("Game Over!");
-            // Restart level
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            // Show game over text
+            gameOverUI.SetActive(true);
+            // Show Retry Button
+            restryButton.SetActive(true);
+            // Pause game
+            Time.timeScale = 0;
         }
     }
     // Start is called once before the first execution of Update after the MonoBehaviour is created
