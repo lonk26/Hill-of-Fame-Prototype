@@ -9,6 +9,15 @@ public class GameOver : MonoBehaviour
     public GameObject retryButton;
     // Assign hit VFX
     public ParticleSystem hitEffect;
+    // Reference to the PlayerAnimator
+    private Animator playerAnimator;
+
+    void Start()
+    {
+        // Get the Animator component from the player object
+        playerAnimator = GetComponentInParent<Animator>();
+    }
+
     void OnCollisionEnter(Collision collision)
     {
         // Check if the player collides with Obstacle
@@ -24,6 +33,14 @@ public class GameOver : MonoBehaviour
                 // Destroy the VFX GameObject after 1 second to free up memory
                 Destroy(effect.gameObject, 1f);
             }
+
+
+            // Trigger the death animation from the PlayerAnimator script
+            if (playerAnimator != null)
+            {
+                playerAnimator.SetTrigger("Death"); // Use the trigger to play the death animation
+            }
+
             // Stop Player Movement (disable movement script)
             GetComponent<PlayerMovement>().enabled = false;
             // Destroy Obstacle Immediately
@@ -31,19 +48,15 @@ public class GameOver : MonoBehaviour
             Invoke("ShowGameOverScreen", 0.5f); // 1-second
         }
     }
+
     void ShowGameOverScreen()
     {
         // Show game over text
-            gameOverUI.SetActive(true);
-            // Show Retry Button
-            retryButton.SetActive(true);
-            // Pause game
-            Time.timeScale = 0;
-    }
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
+        gameOverUI.SetActive(true);
+        // Show Retry Button
+        retryButton.SetActive(true);
+        // Pause game
+        Time.timeScale = 0;
     }
 
     // Update is called once per frame

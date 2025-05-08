@@ -10,12 +10,17 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody rb;
     // Check if the player is on the ground
     private bool isGrounded = true;
-    
-    
+
+    // Declares animator
+    private Animator animator;
+
     void Start()
     {
         // Get the Rigidbody component attached to this GameObject
         rb = GetComponent<Rigidbody>();
+        // Get the Animator component from the child object (Casual_Hoode)
+        animator = GetComponentInChildren<Animator>();
+
     }
 
     // Update is called once per frame
@@ -29,8 +34,15 @@ public class PlayerMovement : MonoBehaviour
         Vector3 move = new Vector3(moveX, 0.0f, moveY) * speed * Time.deltaTime;
         transform.Translate(move, Space.World);
 
-        // Jump when Spacebar is pressed and Player on the ground
-        if (Input.GetKeyDown(KeyCode.Space) && isGrounded) 
+        // Animations for running, jumping
+        if (animator != null)
+        {
+            float movementAmount = Mathf.Abs(move.x) + Mathf.Abs(move.z);
+            Debug.Log("Speed: " + movementAmount);
+            animator.SetFloat("Speed", movementAmount);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
         {
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
             isGrounded = false;
@@ -46,4 +58,14 @@ public class PlayerMovement : MonoBehaviour
             isGrounded = true;
         }
     }
+
+    public void TriggerDeath()
+    {
+        // Trigger the death animation in the Animator
+        if (animator != null)
+        {
+            animator.SetTrigger("Death"); // Trigger the death animation when called
+        }
+    }
+
 }
