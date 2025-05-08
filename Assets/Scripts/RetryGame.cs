@@ -8,7 +8,9 @@ public class RetryGame : MonoBehaviour
         // Reset ingame speed
         Time.timeScale = 1;
         // Reload scene
+        ScoreManager.Instance?.ResetScore();
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        
     }
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()

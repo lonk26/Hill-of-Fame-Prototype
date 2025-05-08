@@ -37,4 +37,10 @@ public class ScoreManager : MonoBehaviour
     {
         return Mathf.FloorToInt(elapsedTime % 60f);
     }
+    public void ResetScore()
+    {
+        Level = 0;
+        elapsedTime = 0f;
+    }
+
 }
