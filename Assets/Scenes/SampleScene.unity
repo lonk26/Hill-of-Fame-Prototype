@@ -3309,7 +3309,7 @@ MonoBehaviour:
   spawnerRight: {fileID: 1085667266}
   spawnInterval: 2
   startDelay: 0
-  obstacleScale: {x: 25, y: 25, z: 25}
+  obstacleScale: {x: 28, y: 28, z: 28}
 --- !u!4 &152945347 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: a4051385261ccbb45a4060203fd8d66e, type: 3}
